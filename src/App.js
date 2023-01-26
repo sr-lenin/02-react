@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import naruto from "./images/naruto-img.png";
+import sasuke from "./images/sasuke-img.png";
+import "./App.css";
+import { useRef } from "react";
 
 function App() {
+  const refCaja = useRef();
+  const cambio = 30;
+
+  const incrementar = (e) => {
+    e.target.innerHTML = Number(e.target.innerHTML) + 1;
+  };
+
+  const convertir = () => {
+    refCaja.current.innerHTML = Number(refCaja.current.innerHTML) * cambio;
+  };
+
+  const cambiar = (e) => {
+    if (e.target.src.includes(naruto)) {
+      e.target.src = sasuke;
+    } else {
+      e.target.src = naruto;
+    }
+  };
+
+  const lectura = (e) => {
+    refCaja.current.innerHTML = e.target.value;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div ref={refCaja} className="caja" onClick={incrementar}>
+        1
+      </div>
+      <button onClick={convertir}>aceptar</button>
+      <div>
+        <img onClick={cambiar} src={naruto} />
+      </div>
+      <input onChange={lectura} className="campo" />
+    </>
   );
 }
 
